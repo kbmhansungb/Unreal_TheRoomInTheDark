@@ -1,0 +1,6 @@
+[submodule "Plugins/HorrorCore"]
+	path = Plugins/HorrorCore
+	url = https://github.com/kbmhansungb/UnrealPlugin_HorrorCore.git
+[submodule "Plugins/FirstPersonHorror"]
+	path = Plugins/FirstPersonHorror
+	url = https://github.com/kbmhansungb/UnrealPlugin_FirstPersonHorror.git
