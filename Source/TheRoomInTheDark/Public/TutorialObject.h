@@ -9,9 +9,9 @@
 class UTutorialComponent;
 
 /**
- * 
+ * UTutorialObject is the object that controls the tutorial with a start and an end.
  */
-UCLASS()
+UCLASS( ClassGroup=(Tutorial) )
 class THEROOMINTHEDARK_API UTutorialObject : public UObject
 {
 	GENERATED_BODY()

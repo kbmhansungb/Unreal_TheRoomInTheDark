@@ -7,7 +7,7 @@
 #include "TutorialComponent.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS( ClassGroup=(Tutorial), meta=(BlueprintSpawnableComponent) )
 class THEROOMINTHEDARK_API UTutorialComponent : public UActorComponent
 {
 	GENERATED_BODY()
