@@ -3,3 +3,7 @@
 
 #include "TutorialWidget.h"
 
+void UTutorialWidget::UpdateMediaTexture(UMediaTexture* mediaTexture)
+{
+	mediaTexture->UpdateResource();
+}
