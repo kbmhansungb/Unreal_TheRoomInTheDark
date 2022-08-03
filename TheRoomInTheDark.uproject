@@ -7,7 +7,12 @@
 		{
 			"Name": "TheRoomInTheDark",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"CoreUObject",
+				"UMG",
+				"Engine"
+			]
 		}
 	],
 	"Plugins": [
@@ -34,6 +39,30 @@
 		},
 		{
 			"Name": "SequencerScripting",
+			"Enabled": true
+		},
+		{
+			"Name": "EditorTests",
+			"Enabled": true
+		},
+		{
+			"Name": "FbxAutomationTestBuilder",
+			"Enabled": true
+		},
+		{
+			"Name": "FunctionalTestingEditor",
+			"Enabled": true
+		},
+		{
+			"Name": "PythonAutomationTest",
+			"Enabled": true
+		},
+		{
+			"Name": "RHITests",
+			"Enabled": true
+		},
+		{
+			"Name": "RuntimeTests",
 			"Enabled": true
 		}
 	],
