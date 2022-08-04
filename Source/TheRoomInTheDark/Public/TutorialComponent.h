@@ -34,7 +34,7 @@ public:
 	UTutorialObject* Instance;
 
 public:
-	void SetTutorial(UObject* Outer, TSubclassOf<UTutorialObject> NewClass);
+	void SetTutorial(UObject* Outer, const TSubclassOf<UTutorialObject>& NewClass);
 	bool ChangeDone(UTutorialComponent* TutorialComponent);
 	bool ChangeOngoing(UTutorialComponent* TutorialComponent);
 

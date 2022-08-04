@@ -3,7 +3,7 @@
 
 #include "TutorialComponent.h"
 
-void FActiveTutorialData::SetTutorial(UObject* Outer, TSubclassOf<UTutorialObject> NewClass)
+void FActiveTutorialData::SetTutorial(UObject* Outer, const TSubclassOf<UTutorialObject>& NewClass)
 {
 	Class = NewClass;
 	Instance = NewObject<UTutorialObject>(Outer, NewClass);
