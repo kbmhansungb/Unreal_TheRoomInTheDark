@@ -118,3 +118,44 @@ void UTutorialComponent::ResetTutorialList()
 		}
 	}
 }
+
+bool UTutorialComponent::IsCorrectinstantiated() const
+{
+	if (Tutorials.Num() == StateDatas.Num())
+	{
+		for (int Index = 0; Index < Tutorials.Num(); ++Index)
+		{
+			if (StateDatas[Index].Class != Tutorials[Index])
+			{
+				return false;
+			}
+
+			if (StateDatas[Index].Instance)
+			{
+				return false;
+			}
+
+			if (StateDatas[Index].Instance->GetClass() != Tutorials[Index])
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+bool UTutorialComponent::CheckTutorialProgress(int DoneNum, int OngoingNum, int PendingNum) const
+{
+	return
+		(StateDatas.Num() - OngoingIndicies.Num() - PendingIndicies.Num()) == DoneNum &&
+		OngoingIndicies.Num() == OngoingNum &&
+		PendingIndicies.Num() == PendingNum;
+}
+
+bool UTutorialComponent::CheckState(int Index, const ETutorialState DesireState) const
+{
+	return DesireState == StateDatas[Index].State;
+}

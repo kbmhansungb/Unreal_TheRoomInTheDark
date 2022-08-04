@@ -61,30 +61,21 @@ bool FTutorialComponentTest::RunTest(const FString& parameters)
 	// 준비
 	const auto& StateDatas = Component->GetStateDatas();
 
-	auto EqualInstancedNum = [&]() -> bool {
-		return Component->Tutorials.Num() == StateDatas.Num();
-	};
-	auto CheckDesireTutorialState = [&](int DoneNum, int OngoingNum, int PendingNum) -> bool {
-		return
-			(StateDatas.Num() - Component->OngoingIndicies.Num() - Component->PendingIndicies.Num()) == DoneNum &&
-			Component->OngoingIndicies.Num() == OngoingNum &&
-			Component->PendingIndicies.Num() == PendingNum;
-	};
 	auto CheckState = [&](int Index, const ETutorialState DesireState) -> bool {
 		return
-			DesireState == StateDatas[Index].State &&
+			Component->CheckState(Index, DesireState) &&
 			DesireState == ETutorialState::Pending ? IsStart == false && IsEnd == false : true &&
 			DesireState == ETutorialState::Pending ? IsStart == true && IsEnd == false : true &&
 			DesireState == ETutorialState::Pending ? IsStart == true && IsEnd == true : true;
 	};
 	
-	if (!EqualInstancedNum())
+	if (!Component->IsCorrectinstantiated())
 	{
 		AddError(FString("Instanced is not equal."));
 	}
 
 	// UTestTutorialObject를 생성했는지 확인하는 테스트
-	if (!CheckDesireTutorialState(0, 0, 1))
+	if (!Component->CheckTutorialProgress(0, 0, 1))
 	{
 		AddError(FString("In the initial state after reset, State should be Pending state."));
 	}
@@ -96,7 +87,7 @@ bool FTutorialComponentTest::RunTest(const FString& parameters)
 
 	//
 	Component->ProcessTutorial(0.f);
-	if (!CheckDesireTutorialState(0, 0, 1))
+	if (!Component->CheckTutorialProgress(0, 0, 1))
 	{
 		AddError(FString("Status changed unintentionally"));
 	}
@@ -104,7 +95,7 @@ bool FTutorialComponentTest::RunTest(const FString& parameters)
 	//
 	OngoingSwitch = true;
 	Component->ProcessTutorial(0.f);
-	if (!CheckDesireTutorialState(0, 1, 0))
+	if (!Component->CheckTutorialProgress(0, 1, 0))
 	{
 		AddError(FString("No transition from pending to in ongoing."));
 	}
@@ -116,7 +107,7 @@ bool FTutorialComponentTest::RunTest(const FString& parameters)
 
 	// 
 	Component->ProcessTutorial(0.f);
-	if (!CheckDesireTutorialState(0, 1, 0))
+	if (!Component->CheckTutorialProgress(0, 1, 0))
 	{
 		AddError(FString("Status changed unintentionally"));
 	}
@@ -124,7 +115,7 @@ bool FTutorialComponentTest::RunTest(const FString& parameters)
 	//
 	DoneSwith = true;
 	Component->ProcessTutorial(0.f);
-	if (!CheckDesireTutorialState(1, 0, 0))
+	if (!Component->CheckTutorialProgress(1, 0, 0))
 	{
 		AddError(FString("No transition from pending to in ongoing."));
 	}
@@ -136,7 +127,7 @@ bool FTutorialComponentTest::RunTest(const FString& parameters)
 
 	// 
 	Component->ProcessTutorial(0.f);
-	if (!CheckDesireTutorialState(1, 0, 0))
+	if (!Component->CheckTutorialProgress(1, 0, 0))
 	{
 		AddError(FString("Status changed unintentionally"));
 	}

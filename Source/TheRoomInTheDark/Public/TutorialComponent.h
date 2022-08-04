@@ -53,11 +53,15 @@ protected:
 public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void ProcessTutorial(float DeltaTime);
+	void ResetTutorialComponent();
 
 public:
-	void ResetTutorialComponent();
 	void ResetTutorialData();
 	void ResetTutorialList();
+
+	bool IsCorrectinstantiated() const;
+	bool CheckTutorialProgress(int DoneNum, int OngoingNum, int PendingNum) const;
+	bool CheckState(int Index, const ETutorialState DesireState) const;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
