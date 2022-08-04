@@ -3,14 +3,14 @@
 
 #include "TutorialObject.h"
 
-bool UTutorialObject::NeedActivate_Implementation(UTutorialComponent* TutorialComponent)
+bool UTutorialObject::NeedOngoing_Implementation(UTutorialComponent* TutorialComponent)
 {
 	return false;
 }
 
 bool UTutorialObject::IsDone_Implementation(UTutorialComponent* TutorialComponent)
 {
-	return true;
+	return false;
 }
 
 void UTutorialObject::StartTutorial_Implementation(UTutorialComponent* TutorialComponent)

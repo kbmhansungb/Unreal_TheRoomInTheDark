@@ -13,7 +13,6 @@ class UTutorialComponent;
 UENUM(BlueprintType)
 enum class ETutorialState : uint8
 {
-	None,
 	Done,
 	Ongoing,
 	Pending,
@@ -29,15 +28,15 @@ public:
 	TSubclassOf<UTutorialObject> Class;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ETutorialState State = ETutorialState::None;
+	ETutorialState State = ETutorialState::Pending;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UTutorialObject* Instance;
 
 public:
-	inline void SetTutorial(TSubclassOf<UTutorialObject> NewClass);
-	inline bool ChangeDone(UTutorialComponent* TutorialComponent);
-	inline bool ChangeOngoing(UTutorialComponent* TutorialComponent);
+	void SetTutorial(UObject* Outer, TSubclassOf<UTutorialObject> NewClass);
+	bool ChangeDone(UTutorialComponent* TutorialComponent);
+	bool ChangeOngoing(UTutorialComponent* TutorialComponent);
 };
 
 UCLASS( ClassGroup=(Tutorial), meta=(BlueprintSpawnableComponent) )
@@ -47,15 +46,15 @@ class THEROOMINTHEDARK_API UTutorialComponent final : public UActorComponent
 
 public:	
 	UTutorialComponent();
-	~UTutorialComponent();
 
 protected:
 	virtual void BeginPlay() override;
 
 public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	void ProcessTutorial(float DeltaTime);
 
-private:
+public:
 	void ResetTutorialComponent();
 	void ResetTutorialData();
 	void ResetTutorialList();
@@ -65,45 +64,16 @@ public:
 	TArray<TSubclassOf<UTutorialObject>> Tutorials;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TArray<int32> ActiveIndex;
+	TArray<int32> OngoingIndicies;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TArray<int32> QueueIndex;
+	TArray<int32> PendingIndicies;
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = ( AllowPrivateAccess = true ))
 	TArray<FActiveTutorialData> StateDatas;
+public:
+	inline const TArray<FActiveTutorialData>& GetStateDatas() { return StateDatas; }
 };
 
 
-inline void FActiveTutorialData::SetTutorial(TSubclassOf<UTutorialObject> NewClass)
-{
-	Class = NewClass;
-	Instance = NewObject<UTutorialObject>(Class);
-}
-
-inline bool FActiveTutorialData::ChangeDone(UTutorialComponent* TutorialComponent)
-{
-	if (Instance->IsDone(TutorialComponent))
-	{
-		State = ETutorialState::Done;
-		Instance->EndTutorial(TutorialComponent);
-
-		return true;
-	}
-
-	return false;
-}
-
-inline bool FActiveTutorialData::ChangeOngoing(UTutorialComponent* TutorialComponent)
-{
-	if (Instance->NeedActivate(TutorialComponent))
-	{
-		State = ETutorialState::Ongoing;
-		Instance->StartTutorial(TutorialComponent);
-
-		return true;
-	}
-
-	return false;
-}

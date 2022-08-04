@@ -3,15 +3,42 @@
 
 #include "TutorialComponent.h"
 
+void FActiveTutorialData::SetTutorial(UObject* Outer, TSubclassOf<UTutorialObject> NewClass)
+{
+	Class = NewClass;
+	Instance = NewObject<UTutorialObject>(Outer, NewClass);
+}
+
+bool FActiveTutorialData::ChangeDone(UTutorialComponent* TutorialComponent)
+{
+	if (Instance->IsDone(TutorialComponent))
+	{
+		State = ETutorialState::Done;
+		Instance->EndTutorial(TutorialComponent);
+
+		return true;
+	}
+
+	return false;
+}
+
+bool FActiveTutorialData::ChangeOngoing(UTutorialComponent* TutorialComponent)
+{
+	if (Instance->NeedOngoing(TutorialComponent))
+	{
+		State = ETutorialState::Ongoing;
+		Instance->StartTutorial(TutorialComponent);
+
+		return true;
+	}
+
+	return false;
+}
+
+
 UTutorialComponent::UTutorialComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
-
-	ResetTutorialComponent();
-}
-
-UTutorialComponent::~UTutorialComponent()
-{
 }
 
 void UTutorialComponent::BeginPlay()
@@ -24,25 +51,29 @@ void UTutorialComponent::BeginPlay()
 void UTutorialComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	ProcessTutorial(DeltaTime);
+}
 
-	for (int32 Pin = QueueIndex.Num() - 1; Pin >= 0; --Pin)
+void UTutorialComponent::ProcessTutorial(float DeltaTime)
+{
+	for (int32 Pin = PendingIndicies.Num() - 1; Pin >= 0; --Pin)
 	{
-		if (StateDatas[QueueIndex[Pin]].ChangeOngoing(this))
+		if (StateDatas[PendingIndicies[Pin]].ChangeOngoing(this))
 		{
-			ActiveIndex.Emplace(QueueIndex[Pin]);
-			QueueIndex.RemoveAt(Pin);
+			OngoingIndicies.Add(PendingIndicies[Pin]);
+			PendingIndicies.RemoveAt(Pin);
 		}
 	}
 
-	for (int32 Pin = ActiveIndex.Num() - 1; Pin >= 0; --Pin)
+	for (int32 Pin = OngoingIndicies.Num() - 1; Pin >= 0; --Pin)
 	{
-		if (StateDatas[QueueIndex[Pin]].ChangeDone(this))
+		if (StateDatas[OngoingIndicies[Pin]].ChangeDone(this))
 		{
-			ActiveIndex.RemoveAt(Pin);
+			OngoingIndicies.RemoveAt(Pin);
 		}
 		else
 		{
-			StateDatas[QueueIndex[Pin]].Instance->TutorialTick(DeltaTime);
+			StateDatas[OngoingIndicies[Pin]].Instance->TutorialTick(DeltaTime);
 		}
 	}
 }
@@ -60,24 +91,25 @@ void UTutorialComponent::ResetTutorialData()
 
 	for (int Index = 0; Index < Tutorials.Num(); ++Index)
 	{
-		StateDatas[Index].SetTutorial(Tutorials[Index]);
+		StateDatas.Emplace();
+		StateDatas[Index].SetTutorial(this, Tutorials[Index]);
 	}
 }
 
 void UTutorialComponent::ResetTutorialList()
 {
-	ActiveIndex.Reset();
-	QueueIndex.Reset();
+	OngoingIndicies.Reset();
+	PendingIndicies.Reset();
 
 	for (int32 Index = 0; Index < StateDatas.Num(); ++Index)
 	{
 		switch (StateDatas[Index].State)
 		{
 		case ETutorialState::Ongoing:
-			ActiveIndex.Emplace(Index);
+			OngoingIndicies.Emplace(Index);
 			break;
 		case ETutorialState::Pending:
-			QueueIndex.Emplace(Index);
+			PendingIndicies.Emplace(Index);
 			break;
 
 		case ETutorialState::Done:
