@@ -3,12 +3,12 @@
 
 #include "TutorialObject.h"
 
-bool UTutorialObject::NeedActivate_Implementation()
+bool UTutorialObject::NeedActivate_Implementation(UTutorialComponent* TutorialComponent)
 {
 	return false;
 }
 
-bool UTutorialObject::IsDone_Implementation()
+bool UTutorialObject::IsDone_Implementation(UTutorialComponent* TutorialComponent)
 {
 	return true;
 }

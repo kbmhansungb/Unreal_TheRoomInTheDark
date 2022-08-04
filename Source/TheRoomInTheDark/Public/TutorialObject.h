@@ -18,12 +18,12 @@ class THEROOMINTHEDARK_API UTutorialObject : public UObject
 	
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	bool NeedActivate();
-	virtual bool NeedActivate_Implementation();
+	bool NeedActivate(UTutorialComponent* TutorialComponent);
+	virtual bool NeedActivate_Implementation(UTutorialComponent* TutorialComponent);
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	bool IsDone();
-	virtual bool IsDone_Implementation();
+	bool IsDone(UTutorialComponent* TutorialComponent);
+	virtual bool IsDone_Implementation(UTutorialComponent* TutorialComponent);
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void StartTutorial(UTutorialComponent* TutorialComponent);
