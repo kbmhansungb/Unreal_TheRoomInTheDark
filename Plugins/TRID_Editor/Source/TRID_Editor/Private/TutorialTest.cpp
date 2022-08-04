@@ -69,7 +69,7 @@ bool FTutorialComponentTest::RunTest(const FString& parameters)
 			DesireState == ETutorialState::Pending ? IsStart == true && IsEnd == true : true;
 	};
 	
-	if (!Component->IsCorrectinstantiated())
+	if (!Component->IsCorrectInstantiated())
 	{
 		AddError(FString("Instanced is not equal."));
 	}

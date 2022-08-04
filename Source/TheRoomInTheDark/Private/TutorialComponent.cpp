@@ -35,6 +35,26 @@ bool FActiveTutorialData::ChangeOngoing(UTutorialComponent* TutorialComponent)
 	return false;
 }
 
+bool FActiveTutorialData::IsInstantiated(const TSubclassOf<UTutorialObject> SpecificClass) const
+{
+	if (SpecificClass != Class)
+	{
+		return false;
+	}
+
+	if (!Instance)
+	{
+		return false;
+	}
+
+	if (Instance->GetClass() != SpecificClass)
+	{
+		return false;
+	}
+
+	return true;
+}
+
 
 UTutorialComponent::UTutorialComponent()
 {
@@ -119,23 +139,13 @@ void UTutorialComponent::ResetTutorialList()
 	}
 }
 
-bool UTutorialComponent::IsCorrectinstantiated() const
+bool UTutorialComponent::IsCorrectInstantiated() const
 {
 	if (Tutorials.Num() == StateDatas.Num())
 	{
 		for (int Index = 0; Index < Tutorials.Num(); ++Index)
 		{
-			if (StateDatas[Index].Class != Tutorials[Index])
-			{
-				return false;
-			}
-
-			if (StateDatas[Index].Instance)
-			{
-				return false;
-			}
-
-			if (StateDatas[Index].Instance->GetClass() != Tutorials[Index])
+			if (!StateDatas[Index].IsInstantiated(Tutorials[Index]))
 			{
 				return false;
 			}

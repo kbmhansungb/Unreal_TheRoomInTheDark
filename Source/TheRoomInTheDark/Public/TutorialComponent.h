@@ -37,6 +37,8 @@ public:
 	void SetTutorial(UObject* Outer, TSubclassOf<UTutorialObject> NewClass);
 	bool ChangeDone(UTutorialComponent* TutorialComponent);
 	bool ChangeOngoing(UTutorialComponent* TutorialComponent);
+
+	bool IsInstantiated(const TSubclassOf<UTutorialObject> SpecificClass) const;
 };
 
 UCLASS( ClassGroup=(Tutorial), meta=(BlueprintSpawnableComponent) )
@@ -59,7 +61,7 @@ public:
 	void ResetTutorialData();
 	void ResetTutorialList();
 
-	bool IsCorrectinstantiated() const;
+	bool IsCorrectInstantiated() const;
 	bool CheckTutorialProgress(int DoneNum, int OngoingNum, int PendingNum) const;
 	bool CheckState(int Index, const ETutorialState DesireState) const;
 
