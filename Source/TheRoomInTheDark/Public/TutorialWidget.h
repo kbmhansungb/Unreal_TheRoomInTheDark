@@ -12,7 +12,7 @@ class UFileMediaSource;
 /**
  * 
  */
-UCLASS(Abstract)
+UCLASS(Abstract, ShowCategories = (Tutorial) )
 class THEROOMINTHEDARK_API UTutorialWidget : public UUserWidget
 {
 	GENERATED_BODY()
