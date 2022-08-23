@@ -4,12 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include <GameInteractionInterface.h>
 #include "GameLightActor.generated.h"
 
+class AGameLightActor;
 class UHorrorLightComponent;
 
-UCLASS()
-class THEROOMINTHEDARK_API AGameLightActor : public AActor
+UCLASS(ClassGroup="Prop|Light")
+class THEROOMINTHEDARK_API AGameLightActor : public AActor,
+	public IGameInteractionInterface
 {
 	GENERATED_BODY()
 	
@@ -17,12 +20,9 @@ public:
 	AGameLightActor();
 
 public:
-	UFUNCTION(Category = "TRID|Light", BlueprintCallable)
-	void TrunOnLight();
+	// IGameInteractionInterface을(를) 통해 상속됨
+	virtual bool Interaction_Implementation() override;
 
-	UFUNCTION(Category = "TRID|Light", BlueprintCallable)
-	void TurnOffLight();
-
-	UPROPERTY(Category = "TRID|Right", EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = "TRID|Right", VisibleAnywhere, BlueprintReadWrite)
 	UHorrorLightComponent* HorrorLight;
 };
