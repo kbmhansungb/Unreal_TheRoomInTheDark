@@ -5,5 +5,7 @@
 
 void UTutorialWidget::UpdateMediaTexture(UMediaTexture* mediaTexture)
 {
+	check(mediaTexture);
+
 	mediaTexture->UpdateResource();
 }

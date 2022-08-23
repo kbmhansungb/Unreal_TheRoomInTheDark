@@ -12,12 +12,14 @@ public class TheRoomInTheDark : ModuleRules
 			"Core", 
 			"CoreUObject", 
 			"Engine", 
-			"InputCore" 
+			"InputCore",
+			"HorrorCore",
+			"HorrorEvent"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[]
 		{
-			"MediaAssets",
+			"MediaAssets"
 		});
 
 		// Uncomment if you are using Slate UI

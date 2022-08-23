@@ -12,7 +12,7 @@ class UFileMediaSource;
 /**
  * 
  */
-UCLASS(Abstract)
+UCLASS(Abstract, ShowCategories = (Tutorial) )
 class THEROOMINTHEDARK_API UTutorialWidget : public UUserWidget
 {
 	GENERATED_BODY()
@@ -28,6 +28,7 @@ public:
 	void AddMedia(UFileMediaSource* FileMediaSource);
 
 public:
+	// MediaTexture에 대해서 UpdateResource를 블루프린트에서 호출할 수 없기 때문에
 	UFUNCTION(BlueprintCallable)
 	void UpdateMediaTexture(UMediaTexture* mediaTexture);
 };
