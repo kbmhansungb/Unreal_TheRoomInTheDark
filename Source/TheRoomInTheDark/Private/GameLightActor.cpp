@@ -11,24 +11,7 @@ AGameLightActor::AGameLightActor()
 
 bool AGameLightActor::Interaction_Implementation()
 {
-	ToggleLight();
+	HorrorLight->ToggleLight();
 
 	return true;
-}
-
-void AGameLightActor::TrunOnLight()
-{
-	HorrorLight->SetLgiht(true);
-	HorrorLight->UpdateLight();
-}
-
-void AGameLightActor::TurnOffLight()
-{
-	HorrorLight->SetLgiht(false);
-	HorrorLight->UpdateLight();
-}
-
-void AGameLightActor::ToggleLight()
-{
-	HorrorLight->ToggleLight();
 }
