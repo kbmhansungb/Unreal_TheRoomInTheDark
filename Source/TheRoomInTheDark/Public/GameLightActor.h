@@ -23,6 +23,9 @@ public:
 	UFUNCTION(Category = "TRID|Light", BlueprintCallable)
 	void TurnOffLight();
 
+	UFUNCTION(Category = "TRID|Light", BlueprintCallable)
+	void ToggleLight();
+
 	UPROPERTY(Category = "TRID|Right", EditAnywhere, BlueprintReadWrite)
 	UHorrorLightComponent* HorrorLight;
 };

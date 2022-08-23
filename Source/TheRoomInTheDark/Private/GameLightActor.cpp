@@ -11,10 +11,18 @@ AGameLightActor::AGameLightActor()
 
 void AGameLightActor::TrunOnLight()
 {
+	HorrorLight->SetLgiht(true);
+	HorrorLight->UpdateLight();
 }
 
 void AGameLightActor::TurnOffLight()
 {
+	HorrorLight->SetLgiht(false);
+	HorrorLight->UpdateLight();
+}
 
+void AGameLightActor::ToggleLight()
+{
+	HorrorLight->ToggleLight();
 }
 
