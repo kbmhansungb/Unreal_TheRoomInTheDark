@@ -6,21 +6,16 @@
 #include "GameFramework/Actor.h"
 #include "DoorActor.generated.h"
 
+class UHorrorSphereMoveableComponent;
+
 UCLASS()
 class THEROOMINTHEDARK_API ADoorActor : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
 	ADoorActor();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
+	UPROPERTY(Category = "TRID|Moveable", VisibleAnywhere, BlueprintReadOnly)
+	UHorrorSphereMoveableComponent* SphereMoveableComponent;
 };
