@@ -9,6 +9,13 @@ AGameLightActor::AGameLightActor()
 	HorrorLight = CreateDefaultSubobject<UHorrorLightComponent>(FName("HorrorLight"));
 }
 
+bool AGameLightActor::Interaction_Implementation()
+{
+	ToggleLight();
+
+	return true;
+}
+
 void AGameLightActor::TrunOnLight()
 {
 	HorrorLight->SetLgiht(true);
@@ -25,4 +32,3 @@ void AGameLightActor::ToggleLight()
 {
 	HorrorLight->ToggleLight();
 }
-
