@@ -10,7 +10,7 @@
 class AGameLightActor;
 class UHorrorLightComponent;
 
-UCLASS(ClassGroup="Prop|Light")
+UCLASS(Abstract, ClassGroup = (Prop, Light))
 class THEROOMINTHEDARK_API AGameLightActor : public AActor,
 	public IGameInteractionInterface
 {
@@ -19,9 +19,10 @@ class THEROOMINTHEDARK_API AGameLightActor : public AActor,
 public:	
 	AGameLightActor();
 
-public:
 	// IGameInteractionInterface을(를) 통해 상속됨
-	virtual bool Interaction_Implementation() override;
+public:
+	virtual bool StartInteraction_Implementation(ACharacter* Character) override;
+	virtual void EndInteraction_Implementation(ACharacter* Character) override;
 
 	UPROPERTY(Category = "TRID|Right", VisibleAnywhere, BlueprintReadWrite)
 	UHorrorLightComponent* HorrorLight;

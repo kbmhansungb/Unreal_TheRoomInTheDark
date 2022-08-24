@@ -7,8 +7,17 @@
 #include "DoorActor.generated.h"
 
 class UHorrorSphereMoveableComponent;
+class ADoorActor;
 
-UCLASS()
+UENUM(BlueprintType)
+enum class EDoorState : uint8
+{
+	//NONE,
+	LOCK,
+	UNLOCK,
+};
+
+UCLASS(Abstract, ClassGroup = (Prop, Door))
 class THEROOMINTHEDARK_API ADoorActor : public AActor
 {
 	GENERATED_BODY()
@@ -16,6 +25,9 @@ class THEROOMINTHEDARK_API ADoorActor : public AActor
 public:	
 	ADoorActor();
 
-	UPROPERTY(Category = "TRID|Moveable", VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(Category = "TRID|Door", VisibleAnywhere, BlueprintReadOnly)
 	UHorrorSphereMoveableComponent* SphereMoveableComponent;
+
+	UPROPERTY(Category = "TRID|Door", EditAnywhere, BlueprintReadWrite)
+	EDoorState DoorStateEnum;
 };

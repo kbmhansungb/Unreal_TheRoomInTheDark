@@ -10,6 +10,6 @@ ADoorActor::ADoorActor()
 	RootComponent = CreateDefaultSubobject<USceneComponent>(FName("Root"));
 
 	SphereMoveableComponent = CreateDefaultSubobject<UHorrorSphereMoveableComponent>(FName("Moveable"));
-	SphereMoveableComponent->MaintainY = false;
+	SphereMoveableComponent->MaintainX = false;
 	SphereMoveableComponent->AttachTo(RootComponent);
 }

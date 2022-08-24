@@ -6,6 +6,8 @@
 #include "UObject/Interface.h"
 #include "GameInteractionInterface.generated.h"
 
+class ACharacter;
+
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class UGameInteractionInterface : public UInterface
@@ -23,6 +25,10 @@ class THEROOMINTHEDARK_API IGameInteractionInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	UFUNCTION(Category = "TRID|Interaction", BlueprintCallable, BlueprintNativeEvent)
-	bool Interaction();
-	virtual bool Interaction_Implementation() = 0;
+	bool StartInteraction(ACharacter* Character);
+	virtual bool StartInteraction_Implementation(ACharacter* Character) = 0;
+	
+	UFUNCTION(Category = "TRID|Interaction", BlueprintCallable, BlueprintNativeEvent)
+	void EndInteraction(ACharacter* Character);
+	virtual void EndInteraction_Implementation(ACharacter* Character) = 0;
 };
