@@ -9,6 +9,8 @@
 class UHorrorSphereMoveableComponent;
 class ADoorActor;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDoorDelegate, ADoorActor*, DoorActor);
+
 UENUM(BlueprintType)
 enum class EDoorState : uint8
 {
@@ -24,10 +26,32 @@ class THEROOMINTHEDARK_API ADoorActor : public AActor
 	
 public:	
 	ADoorActor();
+	virtual void PostInitializeComponents() override;
 
 	UPROPERTY(Category = "TRID|Door", VisibleAnywhere, BlueprintReadOnly)
 	UHorrorSphereMoveableComponent* SphereMoveableComponent;
 
 	UPROPERTY(Category = "TRID|Door", EditAnywhere, BlueprintReadWrite)
 	EDoorState DoorStateEnum;
+	
+	UFUNCTION(Category = "TRID|Door", CallInEditor, BlueprintCallable)
+	void MatchDoorState();
+
+public:
+	UPROPERTY(BlueprintAssignable)
+	FDoorDelegate LockDoorDelegate;
+	
+	UPROPERTY(BlueprintAssignable)
+	FDoorDelegate UnLockDoorDelegate;
+
+#pragma region Implementation
+
+public:
+	void UpdateDoorState(EDoorState NewStateEnum);
+
+private:
+	void SetDoorState(EDoorState NewStateEnum);
+
+#pragma endregion
+
 };
