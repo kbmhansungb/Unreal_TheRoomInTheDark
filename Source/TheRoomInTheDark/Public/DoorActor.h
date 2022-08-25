@@ -28,9 +28,6 @@ public:
 	ADoorActor();
 	virtual void PostInitializeComponents() override;
 
-	UPROPERTY(Category = "TRID|Door", VisibleAnywhere, BlueprintReadOnly)
-	UHorrorSphereMoveableComponent* SphereMoveableComponent;
-
 	UPROPERTY(Category = "TRID|Door", EditAnywhere, BlueprintReadWrite)
 	EDoorState DoorStateEnum;
 	
@@ -38,11 +35,25 @@ public:
 	void MatchDoorState();
 
 public:
+	UPROPERTY(Category = "TRID|Door", VisibleAnywhere, BlueprintReadOnly)
+	UHorrorSphereMoveableComponent* SphereMoveableComponent;
+
+public:
 	UPROPERTY(BlueprintAssignable)
 	FDoorDelegate LockDoorDelegate;
 	
 	UPROPERTY(BlueprintAssignable)
 	FDoorDelegate UnLockDoorDelegate;
+
+protected:
+	UFUNCTION(BlueprintImplementableEvent)
+	void BindSphereMoveableBlockingDelegateWhenUnLock(UHorrorSphereMoveableComponent* PublisherSphereMoveableComponent);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void BindSphereMoveableMoveDelegateWhenUnLock(UHorrorSphereMoveableComponent* PublisherSphereMoveableComponent);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void BindSphereMoveablePrepareMovingDelegateWhenLock(UHorrorSphereMoveableComponent* PublisherSphereMoveableComponent);
 
 #pragma region Implementation
 
