@@ -14,7 +14,8 @@ public class TheRoomInTheDark : ModuleRules
 			"Engine", 
 			"InputCore",
 			"HorrorCore",
-			"HorrorEvent"
+			"HorrorEvent",
+			"HorrorSystem"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[]
