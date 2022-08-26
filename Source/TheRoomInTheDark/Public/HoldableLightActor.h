@@ -33,6 +33,9 @@ public:
 	UFUNCTION(Category = "TRID|Light", BlueprintCallable)
 	void SetLightState(EHoldableLightState NewLightState);
 
+	UFUNCTION(Category = "TRID|Light", CallInEditor, BlueprintCallable)
+	void UpdateLightState();
+
 	UPROPERTY(Category = "TRID|Light", EditAnywhere, BlueprintReadWrite, BlueprintSetter=SetLightState)
 	EHoldableLightState LightState;
 

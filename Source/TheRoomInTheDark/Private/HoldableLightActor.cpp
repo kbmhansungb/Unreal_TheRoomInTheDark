@@ -12,8 +12,11 @@ void AHoldableLightActor::SetLightState(EHoldableLightState NewLightState)
 	}
 
 	LightState = NewLightState;
-	
+	UpdateLightState();
+}
 
+void AHoldableLightActor::UpdateLightState()
+{
 	switch (LightState)
 	{
 	case EHoldableLightState::Off:
@@ -25,7 +28,7 @@ void AHoldableLightActor::SetLightState(EHoldableLightState NewLightState)
 			TurnOffDelegate.Broadcast(this);
 		}
 	}
-		break;
+	break;
 	case EHoldableLightState::On:
 	{
 		TurnOnLight();
@@ -35,7 +38,7 @@ void AHoldableLightActor::SetLightState(EHoldableLightState NewLightState)
 			TurnOnDelegate.Broadcast(this);
 		}
 	}
-		break;
+	break;
 
 	default:
 		check(false);
