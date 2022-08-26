@@ -26,13 +26,13 @@ class THEROOMINTHEDARK_API ADoorActor : public AActor
 	
 public:	
 	ADoorActor();
-	virtual void PostInitializeComponents() override;
+	virtual void BeginPlay() override;
 
 	UPROPERTY(Category = "TRID|Door", EditAnywhere, BlueprintReadWrite)
 	EDoorState DoorStateEnum;
 	
-	UFUNCTION(Category = "TRID|Door", CallInEditor, BlueprintCallable)
-	void MatchDoorState();
+	//UFUNCTION(Category = "TRID|Door", CallInEditor, BlueprintCallable)
+	//void MatchDoorState();
 
 public:
 	UPROPERTY(Category = "TRID|Door", VisibleAnywhere, BlueprintReadOnly)
