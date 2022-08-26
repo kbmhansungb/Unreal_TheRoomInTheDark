@@ -13,7 +13,7 @@ class AHoldableLightActor;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHoldableLightDelegate, AHoldableLightActor*, PublisherHoldableLight);
 
 UENUM(BlueprintType)
-enum class HoldableLightState : uint8
+enum class EHoldableLightState : uint8
 {
 	//NONE,
 	Off,
@@ -31,10 +31,10 @@ public:
 
 public:
 	UFUNCTION(Category = "TRID|Light", BlueprintCallable)
-	void SetLightState(HoldableLightState NewLightState);
+	void SetLightState(EHoldableLightState NewLightState);
 
 	UPROPERTY(Category = "TRID|Light", EditAnywhere, BlueprintReadWrite, BlueprintSetter=SetLightState)
-	HoldableLightState LightState;
+	EHoldableLightState LightState;
 
 protected:
 	UFUNCTION(Category = "TRID|Light", BlueprintCallable, BlueprintImplementableEvent)

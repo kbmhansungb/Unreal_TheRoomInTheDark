@@ -4,7 +4,7 @@
 #include "HoldableLightActor.h"
 
 
-void AHoldableLightActor::SetLightState(HoldableLightState NewLightState)
+void AHoldableLightActor::SetLightState(EHoldableLightState NewLightState)
 {
 	if (LightState == NewLightState)
 	{
@@ -16,7 +16,7 @@ void AHoldableLightActor::SetLightState(HoldableLightState NewLightState)
 
 	switch (LightState)
 	{
-	case HoldableLightState::Off:
+	case EHoldableLightState::Off:
 	{
 		TurnOffLight();
 
@@ -26,7 +26,7 @@ void AHoldableLightActor::SetLightState(HoldableLightState NewLightState)
 		}
 	}
 		break;
-	case HoldableLightState::On:
+	case EHoldableLightState::On:
 	{
 		TurnOnLight();
 
