@@ -27,11 +27,7 @@ class THEROOMINTHEDARK_API AHoldableLightActor : public AHorrorHoldableActor,
 	GENERATED_BODY()
 	
 public:	
-	AHoldableLightActor();
-protected:
-	virtual void BeginPlay() override;
-public:	
-	virtual void Tick(float DeltaTime) override;
+	AHoldableLightActor() = default;
 
 public:
 	UFUNCTION(Category = "TRID|Light", BlueprintCallable)

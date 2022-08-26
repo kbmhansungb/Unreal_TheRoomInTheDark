@@ -3,23 +3,6 @@
 
 #include "HoldableLightActor.h"
 
-AHoldableLightActor::AHoldableLightActor()
-{
- 	PrimaryActorTick.bCanEverTick = true;
-
-}
-
-void AHoldableLightActor::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-void AHoldableLightActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
 
 void AHoldableLightActor::SetLightState(HoldableLightState NewLightState)
 {
