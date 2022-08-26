@@ -21,10 +21,10 @@ void ADoorActor::BeginPlay()
 	SetDoorState(DoorStateEnum);
 }
 
-//void ADoorActor::MatchDoorState()
-//{
-//	SetDoorState(DoorStateEnum);
-//}
+void ADoorActor::MatchDoorState()
+{
+	SetDoorState(DoorStateEnum);
+}
 
 void ADoorActor::UpdateDoorState(EDoorState NewStateEnum)
 {
