@@ -61,3 +61,13 @@ void AHoldableLightActor::ReleaseItemActor_Implementation(UHorrorHandComponent* 
 
 }
 
+void AHoldableLightActor::StartItemActorInteraction_Implementation(ACharacter* Character)
+{
+	ToggleLight();
+}
+
+void AHoldableLightActor::EndItemActorInteraction_Implementation(ACharacter* Character)
+{
+
+}
+
