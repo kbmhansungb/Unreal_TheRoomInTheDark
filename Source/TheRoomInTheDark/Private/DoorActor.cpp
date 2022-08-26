@@ -12,11 +12,6 @@ ADoorActor::ADoorActor()
 
 	SphereMoveableComponent = CreateDefaultSubobject<UHorrorSphereMoveableComponent>(FName("Moveable"));
 	SphereMoveableComponent->AttachTo(RootComponent);
-	{
-		FScriptDelegate ScriptDelegate;
-		ScriptDelegate.BindUFunction(this, FName("BindSphereMoveableBlockingDelegateWhenUnLock"));
-		SphereMoveableComponent->BlockMovingDelegate.Add(ScriptDelegate);
-	}
 }
 
 void ADoorActor::PostInitializeComponents()
@@ -54,9 +49,13 @@ void ADoorActor::SetDoorState(EDoorState NewStateEnum)
 
 		SphereMoveableComponent->MoveDelegate.Remove(this, FName("BindSphereMoveableMoveDelegateWhenUnLock"));
 
-		FScriptDelegate ScriptDelegate;
-		ScriptDelegate.BindUFunction(this, FName("BindSphereMoveablePrepareMovingDelegateWhenLock"));
-		SphereMoveableComponent->PrepareMovingDelegate.Add(ScriptDelegate);
+		{
+			FScriptDelegate ScriptDelegate;
+			ScriptDelegate.BindUFunction(this, FName("BindSphereMoveablePrepareMovingDelegateWhenLock"));
+			SphereMoveableComponent->PrepareMovingDelegate.Add(ScriptDelegate);
+		}
+
+		SphereMoveableComponent->BlockMovingDelegate.Remove(this, FName("BindSphereMoveableBlockingDelegateWhenUnLock"));
 
 		if (LockDoorDelegate.IsBound())
 		{
@@ -77,6 +76,12 @@ void ADoorActor::SetDoorState(EDoorState NewStateEnum)
 		}
 
 		SphereMoveableComponent->PrepareMovingDelegate.Remove(this, FName("BindSphereMoveablePrepareMovingDelegateWhenLock"));
+
+		{
+			FScriptDelegate ScriptDelegate;
+			ScriptDelegate.BindUFunction(this, FName("BindSphereMoveableBlockingDelegateWhenUnLock"));
+			SphereMoveableComponent->BlockMovingDelegate.Add(ScriptDelegate);
+		}
 
 		if (UnLockDoorDelegate.IsBound())
 		{
