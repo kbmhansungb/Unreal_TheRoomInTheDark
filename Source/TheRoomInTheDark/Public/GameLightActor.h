@@ -24,6 +24,6 @@ public:
 	virtual bool StartInteraction_Implementation(ACharacter* Character) override;
 	virtual void EndInteraction_Implementation(ACharacter* Character) override;
 
-	UPROPERTY(Category = "TRID|Right", VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = "TRID|Light", VisibleAnywhere, BlueprintReadWrite)
 	UHorrorLightComponent* HorrorLight;
 };
