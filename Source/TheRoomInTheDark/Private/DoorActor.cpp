@@ -14,17 +14,17 @@ ADoorActor::ADoorActor()
 	SphereMoveableComponent->AttachTo(RootComponent);
 }
 
-void ADoorActor::PostInitializeComponents()
+void ADoorActor::BeginPlay()
 {
-	Super::PostInitializeComponents();
+	Super::BeginPlay();
 
 	SetDoorState(DoorStateEnum);
 }
 
-void ADoorActor::MatchDoorState()
-{
-	SetDoorState(DoorStateEnum);
-}
+//void ADoorActor::MatchDoorState()
+//{
+//	SetDoorState(DoorStateEnum);
+//}
 
 void ADoorActor::UpdateDoorState(EDoorState NewStateEnum)
 {
