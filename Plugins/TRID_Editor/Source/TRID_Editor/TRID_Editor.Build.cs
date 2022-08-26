@@ -42,6 +42,9 @@ public class TRID_Editor : ModuleRules
 				"UnrealEd",
 				"LevelEditor",
 				// ... add private dependencies that you statically link with here ...	
+				"HorrorCore",
+				"HorrorEvent",
+				"HorrorSystem",
 				"TheRoomInTheDark",
 			}
 			);
