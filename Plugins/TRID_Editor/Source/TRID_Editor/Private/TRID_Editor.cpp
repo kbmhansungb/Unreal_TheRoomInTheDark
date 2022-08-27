@@ -1,7 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "TRID_Editor.h"
-#include "TRID_EditorEdMode.h"
 
 #define LOCTEXT_NAMESPACE "FTRID_EditorModule"
 
